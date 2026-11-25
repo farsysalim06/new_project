@@ -48,6 +48,16 @@ def add_grade():
         else:
             print("Grade must be between 0 and 100.")
 
+#view one student
+def view_student():
+    name = input("Enter student name: ").strip()
+
+    if name in students:
+        print("student name:", name)
+        print("grades:", students[name])
+    else:
+        print("student not found.")
+
           
      
 
@@ -60,11 +70,14 @@ while True:
         add_student()
     elif choice == "2":
           add_grade()
+    elif choice == "3":
+        view_student()
     elif choice == "8":
         print("Thank you for using the Student Management System!")
         break
     else:
         print("Invalid choice. Please try again.")
+        
 
         
 
