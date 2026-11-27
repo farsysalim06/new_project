@@ -1,7 +1,30 @@
- #STUDENT MANAGEMENT SYSTEM
+import json
+from pathlib import Path
+
+#STUDENT MANAGEMENT SYSTEM
+
+STUDENTS_FILE = Path(__file__).with_name("students.json")
+
+
+def load_students():
+    if not STUDENTS_FILE.exists():
+        return {}
+
+    with STUDENTS_FILE.open("r", encoding="utf-8") as file:
+        students_data = json.load(file)
+
+    if not isinstance(students_data, dict):
+        raise ValueError("students.json must contain a JSON object.")
+
+    return students_data
+
+
+def save_students():
+    with STUDENTS_FILE.open("w", encoding="utf-8") as file:
+        json.dump(students, file, indent=4)
 
 #Store student records
-students = {}
+students = load_students()
 
 #Display the main menu
 def display_menu():
@@ -26,6 +49,7 @@ def add_student():
             print("Student already exists.")
      else:
             students[name] = []
+            save_students()
             print("Student added successfully.")
 
 #Add or update grades
@@ -43,6 +67,7 @@ def add_grade():
 
         if 0 <= grade <= 100:
             students[name].append(grade)
+            save_students()
             print("Grade added successfully.")
         else:
             print("Grade must be between 0 and 100.")
@@ -105,6 +130,7 @@ def remove_student():
 
     if name in students:
         del students[name]
+        save_students()
         print("Student removed successfully.")
     else:
         print("Student not found.")
