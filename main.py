@@ -3,7 +3,6 @@
 #Store student records
 students = {}
 
-
 #Display the main menu
 def display_menu():
     print("STUDENT MANAGEMENT SYSTEM")
@@ -18,7 +17,7 @@ def display_menu():
 
 #Add a student
 def add_student():
-     
+
      name = input("Enter student name: ") . strip()
 
      if name == "":
@@ -58,8 +57,58 @@ def view_student():
     else:
         print("student not found.")
 
+#View all students
+def view_all_students():
+    if not students:
+        print("No students found.")
+    else:
+        for name, grades in students.items():
+            print("student name:" , name)
+            print("grades:" , grades)
           
-     
+#Calculate average grade
+def calculate_average():
+    if not students:
+        print("No students found.")
+        return
+
+    all_grades = []
+
+    for grades in students.values():
+        all_grades.extend(grades)
+
+    if not all_grades:
+        print("no grades available.")
+        return
+    average = sum(all_grades) / len(all_grades)
+    print("average grade:", average)
+
+#Find highest and lowest grades
+def find_highest_lowest():
+    all_grades = []
+
+    for grades in students.values():
+        all_grades.extend(grades)
+
+    if not all_grades:
+        print("no grades available.")
+        return
+
+    print("Highest grade:",
+    max(all_grades))
+    print("Lowest grade:",
+    min(all_grades))
+
+#Remove a student
+def remove_student():
+    name = input("Enter student name to remove: ").strip()
+
+    if name in students:
+        del students[name]
+        print("Student removed successfully.")
+    else:
+        print("Student not found.")
+
 
 # Main program loop
 while True:
@@ -72,11 +121,20 @@ while True:
           add_grade()
     elif choice == "3":
         view_student()
+    elif choice == "4":
+        view_all_students()
+    elif choice == "5":
+        calculate_average()
+    elif choice == "6":
+        find_highest_lowest()
+    elif choice == "7":
+        remove_student()
     elif choice == "8":
         print("Thank you for using the Student Management System!")
         break
     else:
         print("Invalid choice. Please try again.")
+
         
 
         
